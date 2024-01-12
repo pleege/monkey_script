@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         快捷搜索
-// @namespace    http://github.com/xcoplit/monkey_script
+// @name         快捷键搜索
+// @namespace    http://github.com/xcoplit
 // @version      2024-01-07
 // @description  alt+b baidu selection | alt+g google selection
 // @author       xcoplit
@@ -30,7 +30,7 @@
         new_window("https://www.google.com/search?newwindow=1&q=" + encodeURIComponent(keywords));
     }
 
-    document.addEventListener('keydown', function(event) {
+    function onkeydown(event){
         if (event.metaKey){
             const keywords = window.getSelection().toString().trim();
             if (keywords.length >= 2){
@@ -38,7 +38,10 @@
                 if (event.key == 'g') google(keywords);
             }
         }
+    }
 
-
-    });
+    document.addEventListener('keydown', onkeydown);
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector("input[type=text]").addEventListener('keydown',onkeydown);
+    })
 })();
